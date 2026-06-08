@@ -244,6 +244,29 @@ h3 {
   border-left: 2px solid var(--accent);
 }
 
+/* ---------- Contact box ---------- */
+.contact-box {
+  background: var(--ink);
+  padding: 48px 56px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.contact-box h3 {
+  color: var(--paper);
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  margin: 0;
+  flex: 1;
+  min-width: 280px;
+}
+.contact-box .btn {
+  flex-shrink: 0;
+}
+
 /* ---------- Cards grid ---------- */
 .cards-grid {
   display: grid;
@@ -490,6 +513,20 @@ footer {
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .timeline { grid-template-columns: 1fr; }
+  .contact-box {
+    padding: 32px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .contact-box h3 {
+    font-size: 20px;
+    min-width: auto;
+    margin-bottom: 16px;
+  }
+  .contact-box .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
     </style>
 </head>
@@ -713,9 +750,9 @@ footer {
   <p class="kicker" style="text-align: left; margin-left: -16px; margin-top: -24px;">07 · Kontakt</p>
   <h2>Du bist Teil der Lösung.</h2>
   
-  <div style="background: var(--ink); padding: 48px 56px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap;">
-    <h3 style="color: var(--paper); font-family: 'Manrope', sans-serif; font-size: 24px; margin: 0; flex: 1; min-width: 280px;">Unterstütze das Projekt mit Expertise, Netzwerk oder Ressourcen.</h3>
-    <a href="https://app.notion.com/p/331fa24be1da80daa3abd4342a34f739?pvs=21&assetsVersion=23.13.20260608.0216" class="btn" style="background: var(--paper); color: var(--ink); flex-shrink: 0;">Anmeldeformular</a>
+  <div class="contact-box">
+    <h3>Unterstütze das Projekt mit Expertise, Netzwerk oder Ressourcen.</h3>
+    <a href="https://app.notion.com/p/331fa24be1da80daa3abd4342a34f739?pvs=21&assetsVersion=23.13.20260608.0216" class="btn" style="background: var(--paper); color: var(--ink);">Anmeldeformular</a>
   </div>
 </section>
 
