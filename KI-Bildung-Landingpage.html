@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KI-Bildung | Komitee H36</title>
+<meta name="description" content="KI-Bildung für Jugendliche in Deutschland - Ein Projekt des Komitee H36" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KI-Bildung | Komitee H36" />
+<meta property="og:description" content="Wir wollen junge Menschen in Deutschland dabei unterstützen, KI kritisch und kompetent zu nutzen." />
+<meta property="og:url" content="https://h36.group/ki-bildung" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+        :root {
+  --bg: #ffffff;
+  --bg-soft: #f5f3f4;
+  --paper: #fafafa;
+  --ink: #1a1a1a;
+  --ink-2: #494649;
+  --muted: #8a868a;
+  --line: #e6e2e4;
+  --line-soft: #efedee;
+  --line-strong: #c4bdc1;
+  --accent: #a8245a;
+  --accent-soft: #c84a82;
+  --accent-ink: #fff;
+  --max: 1180px;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+
+p { margin: 0 0 1em; }
+
+em { font-style: italic; }
+strong { font-weight: 600; }
+
+/* ---------- Topbar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px var(--gutter);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.wordmark {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+}
+.wordmark .long {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+.wordmark .alias {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  padding: 3px 7px;
+  border-radius: 3px;
+  line-height: 1;
+  align-self: center;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+.topbar nav a { color: var(--ink-2); transition: color 0.2s; }
+.topbar nav a:hover { color: var(--ink); }
+.topbar nav a.primary {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+.topbar nav a.primary:hover { background: var(--accent); color: #fff; }
+
+/* ---------- Layout primitives ---------- */
+main { display: block; }
+
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 88px) var(--gutter);
+  border-top: 1px solid var(--line-soft);
+}
+
+.kicker {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 500;
+  margin: 0 0 20px;
+}
+
+h1, h2, h3 {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(32px, 3.8vw, 48px);
+  line-height: 1.05;
+  max-width: 22ch;
+  margin: 0 0 32px;
+}
+
+h3 {
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.2;
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+.prose {
+  max-width: 64ch;
+  font-size: 18px;
+  color: var(--ink-2);
+}
+.prose p { margin: 0 0 1.1em; }
+.prose .highlight {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 32px;
+}
+.prose .highlight em {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.prose.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  max-width: none;
+}
+.prose.two-col h3 { margin-top: 28px; }
+.prose.two-col h3:first-child { margin-top: 0; }
+
+/* ---------- Hero ---------- */
+.hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 72px) var(--gutter) clamp(56px, 7vw, 88px);
+}
+.hero h1 {
+  font-size: clamp(38px, 5.2vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  max-width: 22ch;
+  margin: 0 0 28px;
+}
+.hero h1 em {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 400;
+}
+.hero .lede {
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  max-width: 56ch;
+  margin: 0 0 32px;
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.btn:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+.btn.large {
+  padding: 18px 30px;
+  font-size: 16px;
+}
+
+/* ---------- Quote box ---------- */
+.quote-box {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 19px;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin-top: 32px !important;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+}
+
+/* ---------- Cards grid ---------- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 32px;
+}
+.card h4 {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+.card p {
+  font-size: 15px;
+  color: var(--ink-2);
+  margin: 0 0 8px;
+}
+
+.card.accent {
+  background: var(--bg);
+  border: 1px solid var(--accent);
+}
+.card.accent h4 {
+  color: var(--accent);
+}
+
+/* Hover effects */
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+a:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.card:hover {
+  border-color: var(--line-strong);
+  transition: border-color 0.2s ease;
+}
+.card.accent:hover {
+  border-color: var(--accent-soft);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  transform: translateY(-2px);
+}
+
+.list-item:hover {
+  background: var(--bg-soft);
+  transition: background 0.2s ease;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--bg-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 40px;
+  margin-top: 48px;
+}
+.stat {
+  text-align: center;
+}
+.stat .number {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat .label {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Dark section ---------- */
+.dark-section {
+  background: var(--bg);
+  color: var(--ink);
+  padding: clamp(48px, 6vw, 88px) var(--gutter);
+  margin: 0 auto;
+  max-width: var(--max);
+  border-top: 1px solid var(--line-soft);
+}
+.dark-section .kicker { color: var(--accent); }
+.dark-section h2 { color: var(--ink); }
+.dark-section p { color: var(--ink-2); }
+.dark-section .stat .number { color: var(--accent); }
+.dark-section .stat .label { color: var(--muted); }
+
+/* ---------- List items ---------- */
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.list-item .number {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 40px;
+}
+.list-item h4 {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: var(--accent);
+}
+.list-item p {
+  font-size: 16px;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+/* ---------- Timeline ---------- */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.timeline li {
+  text-align: center;
+  position: relative;
+}
+.timeline .number {
+  width: 48px;
+  height: 48px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 auto 16px;
+}
+.timeline h4 {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--ink);
+}
+
+/* ---------- CTA section ---------- */
+.cta-section {
+  background: var(--bg-soft);
+  border-radius: 10px;
+  padding: clamp(48px, 6vw, 80px) clamp(28px, 4vw, 56px);
+  text-align: center;
+  max-width: calc(var(--max) - 2 * var(--gutter));
+  margin: 0 auto;
+}
+.cta-section h2 { max-width: none; }
+.cta-section p { max-width: 56ch; margin: 0 auto 32px; }
+
+/* ---------- Footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding: 40px var(--gutter) 28px;
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+}
+.foot-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+}
+.foot-mark {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 24px;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.foot-brand p:last-child { color: var(--muted); margin: 0; }
+.foot-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  margin: 0 0 10px;
+  font-weight: 500;
+}
+.foot-meta p { margin: 0 0 4px; color: var(--ink-2); font-size: 15px; }
+.foot-meta a { color: var(--accent); }
+
+.foot-bottom {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.foot-bottom p { margin: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .topbar nav { gap: 16px; }
+  .topbar nav a:not(.primary) { display: none; }
+
+  .cards-grid,
+  .prose.two-col {
+    grid-template-columns: 1fr;
+  }
+  .foot-top { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .timeline { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="wordmark" href="#top">
+    <span class="long">H36 <span style="font-style: italic; color: var(--accent);">KI-Bildung</span></span>
+    <span class="alias">H36</span>
+  </a>
+  <nav>
+    <a href="#vision">Vision</a>
+    <a href="#zielgruppe">Zielgruppe</a>
+    <a href="#ziele">Ziele</a>
+    <a href="#kontakt" class="primary">Kontakt</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <h1>
+    KI-Bildung für Jugendliche in <em>Deutschland</em>
+  </h1>
+  <p class="lede">
+  Horizont 2036 möchte junge Menschen in Deutschland dabei unterstützen, KI kritisch und kompetent zu nutzen. Chancengleichheit, Demokratie und wirtschaftliche Teilhabe sollen nicht vom Zufall abhängen.
+</p>
+<p class="lede">
+  Das Projekt richtet sich an Jugendliche zwischen 14 und 18 Jahren. Der Fokus liegt auf Haupt- und Realschulen, wo der Bedarf am größten ist.
+</p>
+  <div class="hero-actions">
+    <a href="#kontakt" class="btn">Kontakt aufnehmen</a>
+  </div>
+</section>
+
+    <section id="vision" class="section">
+  <p class="kicker">01 · Vision 2030</p>
+  <h2>KI-Bildung in Deutschland: 2036</h2>
+  <div class="prose">
+    <p>
+      2036 soll KI-Bildung selbstverständlich sein. Nicht als Zusatzmodul, sondern als elementarer Teil der schulischen Bildung in Deutschland.
+    </p>
+    <p>
+      Jugendliche verfügen über ein fundiertes Verständnis von KI-Systemen und können diese sicher, zielgerichtet und verantwortungsvoll einsetzen. Sie sind in der Lage, Ergebnisse kritisch zu bewerten, Chancen zu nutzen und Risiken reflektiert einzuordnen.
+    </p>
+    <p>
+      Dabei entwickeln sie ein ausgeprägtes Bewusstsein für Datenschutz, Transparenz, Fairness, Manipulation und die gesellschaftlichen Auswirkungen von KI. Sie werden befähigt, KI nicht nur anzuwenden, sondern ihre Rolle in einer digital geprägten Gesellschaft aktiv und mündig mitzugestalten.
+    </p>
+    <p>
+      Lehrkräfte begleiten diesen Bildungsprozess kompetent, reflektiert und mit Offenheit für technologische Entwicklungen.
+    </p>
+    
+    <div class="quote-box">
+      <p>„Ich verstehe, wie KI funktioniert, kann sie sicher einsetzen und bleibe neugierig für neue Entwicklungen."</p>
+      <p>„Diese Qualifizierung war wertvoll – für meine eigene Haltung und für die Lernentwicklung meiner Schüler:innen."</p>
+    </div>
+  </div>
+</section>
+
+    <section id="ausgangspunkt" class="section">
+  <p class="kicker">02 · Ausgangspunkt</p>
+  <h2>Drei Dimensionen des Projekts</h2>
+  <div class="prose">
+    <p>
+      Das Projekt verbindet technische Entwicklung, gesellschaftliche Wirkung und Bildungspraxis zu einem integrierten Ansatz.
+    </p>
+    <p>
+      Seine besondere Stärke liegt darin, unterschiedliche Ebenen wirksam zusammenzuführen: technologische Innovation, tragfähige Ökosysteme und Partnerschaften, gesellschaftliche Teilhabe sowie die konkrete Arbeit mit Schüler:innen.
+    </p>
+    <p>
+      So entsteht ein praxisnahes Modell, das KI-Bildung nicht nur vermittelt, sondern nachhaltig in Schule und Gesellschaft verankert.
+    </p>
+  </div>
+  
+  <div class="prose">
+    <p class="highlight" style="line-height: 1.8;">
+      Technologie ermöglichen.<br>
+      Gesellschaft stärken.<br>
+      Bildung verankern.
+    </p>
+  </div>
+  
+  <div class="list-item">
+    <div class="number">1</div>
+    <div>
+      <h4>Grundlage</h4>
+      <p>Ökosysteme & Partnerschaften</p>
+    </div>
+  </div>
+  <div class="list-item">
+    <div class="number">2</div>
+    <div>
+      <h4>Wirkung</h4>
+      <p>Chancengleichheit, Demokratie & Teilhabe</p>
+    </div>
+  </div>
+  <div class="list-item">
+    <div class="number">3</div>
+    <div>
+      <h4>Umsetzung</h4>
+      <p>Direkter Kontakt & Rollout</p>
+    </div>
+  </div>
+</section>
+
+    <section id="zielgruppe" class="dark-section">
+  <p class="kicker">03 · Zielgruppe</p>
+  <h2>Zielgruppe</h2>
+  <div class="prose">
+    <p>
+      Das Projekt richtet sich an Jugendliche im Alter von 14 bis 18 Jahren und setzt gezielt dort an, wo der Bedarf an KI-Bildung besonders hoch ist.
+    </p>
+    <p>
+      Im Fokus stehen insbesondere Haupt- und Realschulen, da hier der Zugang zu technologischer Bildung häufig stärker begrenzt ist und das Potenzial für gesellschaftliche Wirkung besonders groß ist.
+    </p>
+    <p>
+      Besondere Aufmerksamkeit gilt Jugendlichen, die bislang nur eingeschränkten Zugang zu Technologie, digitalen Lernangeboten oder sprachlicher Unterstützung haben.
+    </p>
+    <p>
+      Das Programm berücksichtigt unterschiedliche Ausgangslagen und wird so gestaltet, dass Inhalte, Methoden und Unterstützungsangebote passgenau auf die jeweiligen Bedürfnisse der Zielgruppen abgestimmt sind.
+    </p>
+  </div>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="number">14–18</div>
+      <div class="label">Jahre</div>
+      <p style="font-size: 0.875rem; color: var(--ink-2); margin-top: 8px;">Jugendliche in der schulischen Orientierungs- und Übergangsphase</p>
+    </div>
+    <div class="stat">
+      <div class="number">H/R</div>
+      <div class="label">Schulformen</div>
+      <p style="font-size: 0.875rem; color: var(--ink-2); margin-top: 8px;">Fokus auf Schulformen mit besonders hohem Bedarf an KI-Bildung</p>
+    </div>
+    <div class="stat">
+      <div class="number">DE</div>
+      <div class="label">Reichweite</div>
+      <p style="font-size: 0.875rem; color: var(--ink-2); margin-top: 8px;">Skalierbarer Ansatz für unterschiedliche regionale und soziale Kontexte</p>
+    </div>
+  </div>
+</section>
+
+    <section id="regionen" class="section">
+  <p class="kicker">04 · Regionen</p>
+  <h2>Wo wir nachhaltig bewegen können</h2>
+  <div class="prose">
+    <p>
+      Da Bildung in Deutschland föderal organisiert ist, muss der Projektstart gezielt mit den passenden Ländern, Regionen und zuständigen Ministerien abgestimmt werden.
+    </p>
+    <p>
+      Entscheidend ist dabei, wo der Bedarf besonders hoch ist und gleichzeitig tragfähige Rahmenbedingungen für eine erfolgreiche Umsetzung bestehen.
+    </p>
+    <p>
+      Ein wichtiger Auswahlfaktor ist der regionale Kontext: In ländlichen Räumen ist der Zugang zu technologischer Bildung häufig stärker eingeschränkt, während urbane Räume oft bessere Infrastruktur und schnellere Skalierungsmöglichkeiten bieten.
+    </p>
+    <p>
+      Die Entscheidung für die Startregion sollte daher auf Basis von Bedarf, Zugänglichkeit, Partnerstruktur und Umsetzbarkeit im jeweiligen Startbezirk getroffen werden.
+    </p>
+  </div>
+  
+  <div class="cards-grid">
+    <div class="card accent">
+      <h4>NRW</h4>
+      <p>Breiter Bedarf & Stadt-Land-Abdeckung</p>
+    </div>
+    <div class="card accent">
+      <h4>Hamburg</h4>
+      <p>Städtische Umsetzung & schnelle Skalierung</p>
+    </div>
+    <div class="card accent">
+      <h4>Berlin</h4>
+      <p>Sichtbarkeit, Diversität & Partnerökosystem</p>
+    </div>
+  </div>
+</section>
+
+    <section id="settings" class="section">
+  <p class="kicker">05 · Settings und Kanäle</p>
+  <h2>Der wirksamkste Zugang</h2>
+  <div class="prose">
+    <p>
+      Für die Umsetzung kommen verschiedene Formate infrage. Gemeinsam mit Partnern wird evaluiert, welcher Ansatz den größten Hebel für Reichweite, Qualität und nachhaltige Wirkung bietet.
+    </p>
+  </div>
+  
+  <div class="cards-grid">
+    <div class="card accent">
+      <h4>Im Unterricht</h4>
+      <p>Integration in bestehende schulische Strukturen und Curricula</p>
+    </div>
+    <div class="card accent">
+      <h4>Außerschulisch</h4>
+      <p>Workshops, Projektformate oder Lernorte außerhalb des Regelunterrichts</p>
+    </div>
+    <div class="card accent">
+      <h4>Digital</h4>
+      <p>Skalierbare Lernangebote, begleitende Materialien und hybride Formate</p>
+    </div>
+  </div>
+</section>
+
+    
+    <section id="projektkern" class="dark-section">
+  <p class="kicker">06 · Projektkern</p>
+  <h2>Was das Projekt ausmacht</h2>
+  <div class="prose">
+    <p>
+      Im Kern verfolgt das Projekt das Ziel, KI-Bildung nachhaltig im Bildungssystem zu&nbsp;verankern, Jugendliche zu stärken und ein tragfähiges Netzwerk aus Schulen, Partnern und Institutionen aufzubauen.
+    </p>
+    <p>
+      Es steht für einen verantwortungsvollen und praxisnahen Umgang mit Technologie: mit dem Anspruch, Chancengleichheit zu fördern, kritisches Denken zu stärken, konkrete Anwendungskompetenz zu vermitteln und gesellschaftliche Teilhabe zu ermöglichen.
+    </p>
+  </div>
+</section>
+
+    <section id="kontakt" class="cta-section">
+  <p class="kicker" style="text-align: left; margin-left: -16px; margin-top: -24px;">07 · Kontakt</p>
+  <h2>Du bist Teil der Lösung.</h2>
+  
+  <div style="background: var(--ink); padding: 48px 56px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap;">
+    <h3 style="color: var(--paper); font-family: 'Manrope', sans-serif; font-size: 24px; margin: 0; flex: 1; min-width: 280px;">Unterstütze das Projekt mit Expertise, Netzwerk oder Ressourcen.</h3>
+    <a href="https://app.notion.com/p/331fa24be1da80daa3abd4342a34f739?pvs=21&assetsVersion=23.13.20260608.0216" class="btn" style="background: var(--paper); color: var(--ink); flex-shrink: 0;">Anmeldeformular</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <p class="foot-mark">Komitee H36</p>
+      <p>Ein Kollektiv für Deutschlands Zukunft.</p>
+    </div>
+    <div class="foot-meta">
+      <p class="foot-label">Projekt</p>
+      <p>KI-Bildung</p>
+    </div>
+    <div class="foot-meta">
+      <p class="foot-label">Kontakt</p>
+      <p><a href="mailto:kontakt@h36.group">kontakt@h36.group</a></p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>
+      <a href="https://h36.group">h36.group</a> ·
+      <a href="#top">Nach oben ↑</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
