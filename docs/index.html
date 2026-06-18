@@ -443,6 +443,271 @@ a:hover {
   color: var(--ink);
 }
 
+/* ---------- Wirkungskette ---------- */
+.chain {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 48px;
+}
+.chain-step {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  padding: 0 4px;
+}
+.chain-step .number {
+  width: 48px;
+  height: 48px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 auto 16px;
+}
+.chain-step h4 {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.chain-step p {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 0;
+}
+.chain-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--line-strong);
+  height: 48px;
+}
+@media (max-width: 900px) {
+  .chain { flex-direction: column; align-items: stretch; gap: 4px; }
+  .chain-step { padding: 0; }
+  .chain-arrow { height: auto; padding: 4px 0; transform: rotate(90deg); }
+}
+
+/* ---------- Kriterien (Akkordeon) ---------- */
+.criteria {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.criterion {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+}
+.criterion:hover {
+  border-color: var(--line-strong);
+  transition: border-color 0.2s ease;
+}
+.criterion summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 18px 24px;
+  font-family: "Manrope", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+}
+.criterion summary::-webkit-details-marker { display: none; }
+.criterion summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+.criterion .crit-label {
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.criterion .crit-icon {
+  margin-left: auto;
+  align-self: center;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.criterion[open] .crit-icon { transform: rotate(180deg); }
+.criterion .crit-body { padding: 0 24px 20px; }
+.criterion .crit-body p {
+  font-size: 15px;
+  color: var(--ink-2);
+  margin: 0 0 8px;
+}
+.criterion .crit-body p:last-child { margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .criterion .crit-icon { transition: none; }
+}
+
+/* ---------- Feld-Map: Ansatzpunkte auf Wirkungskette ---------- */
+.field-map {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  grid-template-rows: auto 28px auto;
+  column-gap: 8px;
+  align-items: end;
+  margin-top: 40px;
+}
+.fm-lever {
+  display: block;
+  width: 100%;
+  border: 1px dashed var(--accent);
+  border-radius: 6px;
+  padding: 14px 12px;
+  text-align: center;
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg));
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.fm-lever:hover { background: color-mix(in srgb, var(--accent) 10%, var(--bg)); }
+.fm-lever:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fm-lever[aria-pressed="true"] {
+  border-style: solid;
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  box-shadow: 0 0 0 1px var(--accent) inset;
+}
+.fm-lever + .fm-lever { margin-top: 8px; }
+.fm-lever-title {
+  display: block;
+  font-family: "Manrope", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--accent);
+}
+.fm-lever-sub {
+  font-size: 12.5px;
+  color: var(--accent-soft);
+}
+.fm-connector {
+  align-self: stretch;
+  justify-self: center;
+  width: 0;
+  border-left: 1px dashed var(--accent);
+}
+.fm-step {
+  align-self: stretch;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 18px 14px;
+  text-align: center;
+}
+.fm-step-title {
+  display: block;
+  font-family: "Manrope", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink-2);
+}
+.fm-step-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.fm-arrow {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--line-strong);
+}
+.fm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.fm-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.fm-swatch { width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+.fm-swatch.is-chain { background: var(--paper); border: 1px solid var(--line); }
+.fm-swatch.is-lever { border: 1px dashed var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--bg)); }
+@media (max-width: 900px) {
+  .field-map {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fm-arrow { display: none; }
+  .fm-connector { align-self: center; height: 24px; }
+  .fm-lever, .fm-step { width: 100%; }
+}
+.fm-step { transition: background 0.2s ease, border-color 0.2s ease, border-radius 0.2s ease, transform 0.25s ease; }
+.fm-step.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, var(--bg));
+}
+.fm-step.is-active .fm-step-title { color: var(--accent); }
+.fm-step.is-goal {
+  border-color: var(--accent);
+  background: var(--accent);
+  border-radius: 28px;
+  transform-origin: left center;
+}
+.fm-step.is-goal .fm-step-title,
+.fm-step.is-goal .fm-step-sub { color: var(--accent-ink); }
+.fm-step.is-goal.lvl-1 { transform: scale(1.03); }
+.fm-step.is-goal.lvl-2 { transform: scale(1.06); }
+.fm-step.is-goal.lvl-3 { transform: scale(1.09); }
+.fm-step.is-goal.lvl-4 { transform: scale(1.12); }
+.fm-arrow { transition: color 0.2s ease; }
+.fm-arrow.is-active { color: var(--accent); }
+.fm-connector { transition: border-left-color 0.2s ease; }
+.fm-connector.is-active { border-left-style: solid; border-left-color: var(--accent); }
+.fm-hint { margin-top: 28px; color: var(--muted); font-size: 15px; }
+.fm-combo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.fm-combo-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--muted);
+}
+.fm-bubble {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: "Manrope", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+.fm-plus { color: var(--accent-soft); font-weight: 600; font-size: 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .fm-lever, .fm-step, .fm-arrow, .fm-connector, .fm-bubble { transition: none; }
+}
+
 /* ---------- CTA section ---------- */
 .cta-section {
   background: var(--bg-soft);
@@ -664,68 +929,187 @@ footer {
   </div>
 </section>
 
-    <section id="regionen" class="section">
-  <p class="kicker">04 · Regionen</p>
-  <h2>Startregionen mit Wirkungspotenzial</h2>
+    <section id="wirkungskette" class="section">
+  <p class="kicker">04 · Wirkungskette</p>
+  <h2>So wirkt unser Feld</h2>
   <div class="prose">
     <p>
-      Da Bildung in Deutschland föderal organisiert ist, muss der Projektstart gezielt mit den passenden Ländern, Regionen und zuständigen Ministerien abgestimmt werden.
+      KI-Bildung ist im deutschen Schulalltag noch keine Selbstverständlichkeit. Bestehende Angebote sind oft punktuell, freiwillig und vom Engagement Einzelner abhängig. Eine flächendeckende Verankerung fehlt.
     </p>
     <p>
-      Entscheidend ist dabei, wo der Bedarf besonders hoch ist und gleichzeitig tragfähige Rahmenbedingungen für eine erfolgreiche Umsetzung bestehen.
+      Hinzu kommt, dass selbst bei existierenden Angeboten eine starke Abhängigkeit zwischen sozialem Huntergrund und tatsächlichem Profit der Kinder und Jugendlichen besteht.
     </p>
     <p>
-      Ein wichtiger Auswahlfaktor ist der regionale Kontext: In ländlichen Räumen ist der Zugang zu technologischer Bildung häufig stärker eingeschränkt, während urbane Räume oft bessere Infrastruktur und schnellere Skalierungsmöglichkeiten bieten.
-    </p>
-    <p>
-      Die Entscheidung für die Startregion wird daher auf Basis von Bedarf, Zugänglichkeit, Partnerstruktur und Umsetzbarkeit im jeweiligen Startbezirk getroffen werden.
+      Auf dieser Grundlage ergibt sich eine aktuelle Wirkungskette, die das mögliche Potenzial eines Programms aufzeigt. Aus lückenhaften Angeboten wird aktuell ungleicher Zugang, ungleiche Kompetenz sowie ein Gefälle in gesellschaftlicher Teilhabe.
     </p>
   </div>
-  
-  <div class="cards-grid">
-    <div class="card accent">
-      <h4>NRW</h4>
-      <p>Breiter Bedarf & Stadt-Land-Abdeckung</p>
+
+  <div class="chain" role="list" aria-label="Wirkungskette in vier Schritten">
+    <div class="chain-step" role="listitem">
+      <div class="number" aria-hidden="true">1</div>
+      <h4>Angebote</h4>
+      <p>Vorhandene Angebote bleiben aktuell punktuell und freiwillig, wodurch KI-Bildung nicht flächendeckend verankert ist.</p>
     </div>
-    <div class="card accent">
-      <h4>Hamburg</h4>
-      <p>Städtische Umsetzung & schnelle Skalierung</p>
+    <div class="chain-arrow" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-    <div class="card accent">
-      <h4>Berlin</h4>
-      <p>Sichtbarkeit, Diversität & Partnerökosystem</p>
+    <div class="chain-step" role="listitem">
+      <div class="number" aria-hidden="true">2</div>
+      <h4>Zugang</h4>
+      <p>Bei bestehenden Angeboten bestimmen Kanal und Region über den resultierend ungleichen Zugang.</p>
+    </div>
+    <div class="chain-arrow" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="chain-step" role="listitem">
+      <div class="number" aria-hidden="true">3</div>
+      <h4>Kompetenz</h4>
+      <p>Es entstehen Kompetenzen , die sich entlang der sozialen Herkunft unterscheiden.</p>
+    </div>
+    <div class="chain-arrow" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="chain-step" role="listitem">
+      <div class="number" aria-hidden="true">4</div>
+      <h4>Teilhabe</h4>
+      <p>Das Gefälle gesellschaftlicher Teilhabe wächst.</p>
     </div>
   </div>
 </section>
 
-    <section id="settings" class="section">
-  <p class="kicker">05 · Settings und Kanäle</p>
-  <h2>Der wirksamkste Zugang</h2>
+    <section id="ansatz" class="section">
+  <p class="kicker">05 · Ansatzpunkt</p>
+  <h2>Wo setzen wir an?</h2>
   <div class="prose">
     <p>
-      Für die Umsetzung kommen verschiedene Formate infrage. Gemeinsam mit Partnern wird evaluiert, welcher Ansatz den größten Hebel für Reichweite, Qualität und nachhaltige Wirkung bietet.
+      Aus methodischen Gründen legen wir unseren konkreten Ansatzpunkt noch nicht fest. Wir bewerten auf Grundlage unserer Partner zunächst entlang definierter Kriterien, welcher Hebel die größte Wirkung entfaltet.
+    </p>
+    <p class="highlight">
+      Wie <em>bewegen</em> wir am  <em>stärksten</em>?.
     </p>
   </div>
-  
-  <div class="cards-grid">
-    <div class="card accent">
-      <h4>Im Unterricht</h4>
-      <p>Integration in bestehende schulische Strukturen und Curricula</p>
-    </div>
-    <div class="card accent">
-      <h4>Außerschulisch</h4>
-      <p>Workshops, Projektformate oder Lernorte außerhalb des Regelunterrichts</p>
-    </div>
-    <div class="card accent">
-      <h4>Digital</h4>
-      <p>Skalierbare Lernangebote, begleitende Materialien und hybride Formate</p>
+
+  <div style="margin-top: 32px;">
+    <p class="foot-label" style="margin-bottom: 14px;">Unsere vier Auswahlkriterien</p>
+    <div class="criteria">
+      <details class="criterion">
+        <summary>
+          <span class="crit-label">Kriterium 1</span>
+          Wirkung
+          <svg class="crit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="crit-body">
+          <p><strong>Bedeutung:</strong> Wie stark verbessert ein Ansatz die KI-Kompetenz der Jugendlichen in Tiefe und Qualität?</p>
+          <p><strong>Mögliche Messbarkeit:</strong> Ein Vergleich des Kompetenzzuwachses vor und nach der Teilnahme, um Qualität, Tiefe der vermittelten Inhalte und Übertragbarkeit auf den Alltag zu bewerten.</p>
+        </div>
+      </details>
+      <details class="criterion">
+        <summary>
+          <span class="crit-label">Kriterium 2</span>
+          Reichweite
+          <svg class="crit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="crit-body">
+          <p><strong>Bedeutung:</strong> Wie viele Jugendliche aus welchen gesellschaftlichen Gruppen werden durch einen Ansatz erreicht?</p>
+          <p><strong>Mögliche Messbarkeit:</strong> Erfasst werden könnten die Zahl der erreichten Schüler:innen, die Abdeckung über verschiedene Schulformen und Regionen sowie der Anteil bislang schwer erreichbarer Zielgruppen.</p>
+        </div>
+      </details>
+      <details class="criterion">
+        <summary>
+          <span class="crit-label">Kriterium 3</span>
+          Umsetzbarkeit
+          <svg class="crit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="crit-body">
+          <p><strong>Was es bedeutet:</strong> Wie realistisch lässt sich ein Ansatz unter Berücksichtigung der vorhandenden Mittel, Partner und Rahmenbedingungen tatsächlich umsetzen?</p>
+          <p><strong>Mögliche Messbarkeit:</strong> Beurteilt werden könnten die Zeit bis zum tatsächlichen Start, die Abhängigkeit von Genehmigungen und föderaler Abstimmung sowie der zeitliche und finanzielle Aufwand pro Lernort.</p>
+        </div>
+      </details>
+      <details class="criterion">
+        <summary>
+          <span class="crit-label">Kriterium 4</span>
+          Nachhaltigkeit
+          <svg class="crit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="crit-body">
+          <p><strong>Was es bedeutet:</strong> Wie dauerhaft wirkt der Ansatz über den Projektzeitraum hinaus, sodass ein langfristiger Mehrwert für die Jugendlichen sichtbar wird?</p>
+          <p><strong>Mögliche Messbarkeit:</strong> Beurteilt werden könnten die strukturelle Verankerung im Curriculum, die Wiederverwendbarkeit der Materialien sowie der Fortbestand der Angebote nach Projektende ohne dauerhafte externe Unterstützung.</p>
+        </div>
+      </details>
     </div>
   </div>
+
+  <div class="prose" style="margin-top: 40px;">
+    <p>
+      Jeder mögliche Ansatzpunkt setzt an einer bestimmten Stelle der <em>Wirkungskette</em> an. Wähle einen oder mehrere Hebel, um zu sehen, wie sie wirken und sich bis zur Teilhabe fortpflanzen.
+    </p>
+  </div>
+
+  <div class="field-map" role="group" aria-label="Mögliche Ansatzpunkte und ihre Position in der Wirkungskette">
+    <button type="button" class="fm-lever" aria-pressed="false" data-lever="inhalte" data-step="angebote" style="grid-column: 1; grid-row: 1;">
+      <span class="fm-lever-title">Inhalte &amp; Material</span>
+      <span class="fm-lever-sub">möglicher Hebel</span>
+    </button>
+    <div class="fm-connector" data-step="angebote" style="grid-column: 1; grid-row: 2;" aria-hidden="true"></div>
+    <div class="fm-step" data-step="angebote" style="grid-column: 1; grid-row: 3;">
+      <span class="fm-step-title">Angebote</span>
+      <span class="fm-step-sub">viele Ansätze</span>
+    </div>
+
+    <div style="grid-column: 3; grid-row: 1;">
+      <button type="button" class="fm-lever" aria-pressed="false" data-lever="kanal" data-step="zugang">
+        <span class="fm-lever-title">Kanal Schule</span>
+        <span class="fm-lever-sub">möglicher Hebel</span>
+      </button>
+      <button type="button" class="fm-lever" aria-pressed="false" data-lever="startregion" data-step="zugang">
+        <span class="fm-lever-title">Startregion</span>
+        <span class="fm-lever-sub">möglicher Hebel</span>
+      </button>
+    </div>
+    <div class="fm-connector" data-step="zugang" style="grid-column: 3; grid-row: 2;" aria-hidden="true"></div>
+    <div class="fm-arrow" data-from="angebote" data-to="zugang" style="grid-column: 2; grid-row: 3;" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="fm-step" data-step="zugang" style="grid-column: 3; grid-row: 3;">
+      <span class="fm-step-title">Zugang</span>
+      <span class="fm-step-sub">Kanal &amp; Region</span>
+    </div>
+
+    <button type="button" class="fm-lever" aria-pressed="false" data-lever="lehrkraefte" data-step="kompetenz" style="grid-column: 5; grid-row: 1;">
+      <span class="fm-lever-title">Lehrkräfte</span>
+      <span class="fm-lever-sub">in Prüfung</span>
+    </button>
+    <div class="fm-connector" data-step="kompetenz" style="grid-column: 5; grid-row: 2;" aria-hidden="true"></div>
+    <div class="fm-arrow" data-from="zugang" data-to="kompetenz" style="grid-column: 4; grid-row: 3;" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="fm-step" data-step="kompetenz" style="grid-column: 5; grid-row: 3;">
+      <span class="fm-step-title">Kompetenz</span>
+      <span class="fm-step-sub">nach Herkunft</span>
+    </div>
+
+    <div class="fm-arrow" data-from="kompetenz" data-to="teilhabe" style="grid-column: 6; grid-row: 3;" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="fm-step" data-step="teilhabe" style="grid-column: 7; grid-row: 3;">
+      <span class="fm-step-title">Teilhabe</span>
+      <span class="fm-step-sub">Chancengefälle</span>
+    </div>
+  </div>
+
+  <div class="fm-legend">
+    <span><span class="fm-swatch is-chain" aria-hidden="true"></span> Wirkungskette </span>
+    <span><span class="fm-swatch is-lever" aria-hidden="true"></span> zu evaluierende Ansatzpunkte</span>
+  </div>
+
+  <p class="fm-hint" id="fm-hint">Noch kein Hebel ausgewählt. Klicke oben auf einen oder mehrere Ansatzpunkte.</p>
+  <div class="fm-combo" id="fm-combo" aria-live="polite" hidden></div>
+  <div class="cards-grid" id="fm-details"></div>
 </section>
 
     
     <section id="kontakt" class="cta-section">
-  <p class="kicker" style="text-align: left; margin-left: -16px; margin-top: -24px;">07 · Kontakt</p>
+  <p class="kicker" style="text-align: left; margin-left: -16px; margin-top: -24px;">06 · Kontakt</p>
   <h2>Du bist Teil der Lösung.</h2>
   
   <div class="contact-box">
@@ -758,6 +1142,117 @@ footer {
     </p>
   </div>
 </footer>
+
+<script>
+(function () {
+  var map = document.querySelector('.field-map');
+  if (!map) return;
+
+  var details = document.getElementById('fm-details');
+  var combo = document.getElementById('fm-combo');
+  var hint = document.getElementById('fm-hint');
+  var levers = Array.prototype.slice.call(map.querySelectorAll('.fm-lever'));
+  var steps = Array.prototype.slice.call(map.querySelectorAll('.fm-step'));
+  var arrows = Array.prototype.slice.call(map.querySelectorAll('.fm-arrow'));
+  var connectors = Array.prototype.slice.call(map.querySelectorAll('.fm-connector'));
+
+  var chainOrder = ['angebote', 'zugang', 'kompetenz', 'teilhabe'];
+  var leverGoalSteps = ['angebote', 'zugang', 'kompetenz'];
+
+  var info = {
+    inhalte: {
+      title: 'Inhalte & Material',
+      text: 'Hochwertige Inhalte haben eine hohe Hebelwirkung auf die Qualität der KI-Bildung, da einmal erstellte Materialien über viele Lernorte hinweg wirken. Ohne einen passenden Kanal entsteht jedoch keine Reichweite.'
+    },
+    kanal: {
+      title: 'Kanal Schule',
+      text: 'Der Regelunterricht erreicht verpflichtend alle Jugendlichen und ermöglicht eine strukturelle Verankerung, ob im Unterricht, außerschulisch oder digital. Die föderale Abstimmung ist dabei jedoch langsam.'
+    },
+    startregion: {
+      title: 'Startregion',
+      text: 'Eine einzelne Region ermöglicht eine schnelle Pilotierung und Sichtbarkeit, da Erprobung in einem klaren Kontext, etwa in NRW, Hamburg oder Berlin, greifbarer ist. Zunächst bleibt die Breite dadurch begrenzt.'
+    },
+    lehrkraefte: {
+      title: 'Lehrkräfte',
+      text: 'Über den Multiplikatoreffekt der unterrichtenden Personen skaliert die Wirkung über jede begleitete Klasse, erfordert jedoch Fortbildungsaufwand und wird derzeit noch geprüft.'
+    }
+  };
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+
+  function render() {
+    var activeLevers = levers.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; });
+    var coveredSteps = {};
+    activeLevers.forEach(function (b) { coveredSteps[b.getAttribute('data-step')] = true; });
+
+    var count = activeLevers.length;
+
+    steps.forEach(function (step) {
+      var id = step.getAttribute('data-step');
+      step.classList.remove('lvl-1', 'lvl-2', 'lvl-3', 'lvl-4');
+      if (id === 'teilhabe') {
+        step.classList.toggle('is-goal', count > 0);
+        if (count > 0) step.classList.add('lvl-' + Math.min(count, 4));
+      } else {
+        step.classList.toggle('is-active', !!coveredSteps[id]);
+      }
+    });
+
+    connectors.forEach(function (c) {
+      c.classList.toggle('is-active', !!coveredSteps[c.getAttribute('data-step')]);
+    });
+
+    arrows.forEach(function (a) {
+      var from = a.getAttribute('data-from');
+      var to = a.getAttribute('data-to');
+      var toReached = coveredSteps[to] || (to === 'teilhabe' && count > 0);
+      a.classList.toggle('is-active', !!coveredSteps[from] && !!toReached);
+    });
+
+    if (count === 0) {
+      hint.hidden = false;
+      combo.hidden = true;
+      combo.innerHTML = '';
+      details.innerHTML = '';
+      return;
+    }
+
+    hint.hidden = true;
+    var ordered = activeLevers.slice().sort(function (a, b) {
+      return chainOrder.indexOf(a.getAttribute('data-step')) - chainOrder.indexOf(b.getAttribute('data-step'));
+    });
+
+    combo.hidden = false;
+    var bubbles = ordered.map(function (b) {
+      return '<span class="fm-bubble">' + escapeHtml(info[b.getAttribute('data-lever')].title) + '</span>';
+    });
+    combo.innerHTML = '<span class="fm-combo-label">' + (count > 1 ? 'Wirkt in Kombination' : 'Ausgewählter Hebel') + '</span>' +
+      bubbles.join('<span class="fm-plus" aria-hidden="true">+</span>');
+
+    details.innerHTML = ordered.map(function (b) {
+      var d = info[b.getAttribute('data-lever')];
+      if (!d) return '';
+      return '<div class="card">' +
+        '<h4>' + escapeHtml(d.title) + '</h4>' +
+        '<p>' + escapeHtml(d.text) + '</p>' +
+        '</div>';
+    }).join('');
+  }
+
+  levers.forEach(function (b) {
+    b.addEventListener('click', function () {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      render();
+    });
+  });
+
+  render();
+})();
+</script>
 
 </body>
 </html>
