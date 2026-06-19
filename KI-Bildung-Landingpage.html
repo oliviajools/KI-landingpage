@@ -559,6 +559,7 @@ a:hover {
 }
 
 /* ---------- Feld-Map: Ansatzpunkte auf Wirkungskette ---------- */
+.fm-mobile-row { display: contents; }
 .field-map {
   display: grid;
   grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
@@ -643,15 +644,57 @@ a:hover {
 .fm-swatch { width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; }
 .fm-swatch.is-chain { background: var(--paper); border: 1px solid var(--line); }
 .fm-swatch.is-lever { border: 1px dashed var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--bg)); }
-@media (max-width: 900px) {
+@media (max-width: 700px) {
+  /* Switch field-map from CSS Grid to vertical stack of rows */
   .field-map {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    gap: 0;
+    margin-top: 24px;
   }
+  /* Unwrap the desktop grid: make each row-wrapper a real visual row */
+  .fm-mobile-row {
+    display: grid !important;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .fm-mobile-row + .fm-mobile-row {
+    border-top: 1px dashed var(--line);
+  }
+  /* Teilhabe has no lever: single column, centered */
+  .fm-mobile-row.is-goal-row {
+    grid-template-columns: 1fr;
+    padding-top: 10px;
+  }
+  /* Levers stack vertically on the left */
+  .fm-mobile-levers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  /* Chain step sits on the right, fixed width */
+  .fm-step {
+    min-width: 88px;
+    max-width: 110px;
+    padding: 10px 8px;
+    align-self: center;
+  }
+  .fm-step-title { font-size: 13px; }
+  .fm-step-sub { font-size: 11px; }
+  /* Teilhabe step goes full width */
+  .fm-mobile-row.is-goal-row .fm-step {
+    max-width: 100%;
+    width: 100%;
+    transform-origin: center;
+  }
+  .fm-lever { padding: 10px 12px; }
+  .fm-lever-title { font-size: 14px; }
+  .fm-lever-sub { font-size: 11px; }
+  /* Hide desktop-only elements */
+  .fm-connector { display: none; }
   .fm-arrow { display: none; }
-  .fm-connector { align-self: center; height: 24px; }
-  .fm-lever, .fm-step { width: 100%; }
 }
 .fm-step { transition: background 0.2s ease, border-color 0.2s ease, border-radius 0.2s ease, transform 0.25s ease; }
 .fm-step.is-active {
@@ -1046,55 +1089,73 @@ footer {
   </div>
 
   <div class="field-map" role="group" aria-label="Mögliche Ansatzpunkte und ihre Position in der Wirkungskette">
-    <button type="button" class="fm-lever" aria-pressed="false" data-lever="inhalte" data-step="angebote" style="grid-column: 1; grid-row: 1;">
-      <span class="fm-lever-title">Inhalte &amp; Material</span>
-      <span class="fm-lever-sub">möglicher Hebel</span>
-    </button>
-    <div class="fm-connector" data-step="angebote" style="grid-column: 1; grid-row: 2;" aria-hidden="true"></div>
-    <div class="fm-step" data-step="angebote" style="grid-column: 1; grid-row: 3;">
-      <span class="fm-step-title">Angebote</span>
-      <span class="fm-step-sub">viele Ansätze</span>
+
+    <!-- Angebote -->
+    <div class="fm-mobile-row" style="display: contents;">
+      <div class="fm-mobile-levers" style="grid-column: 1; grid-row: 1;">
+        <button type="button" class="fm-lever" aria-pressed="false" data-lever="inhalte" data-step="angebote">
+          <span class="fm-lever-title">Inhalte &amp; Material</span>
+          <span class="fm-lever-sub">möglicher Hebel</span>
+        </button>
+      </div>
+      <div class="fm-connector" data-step="angebote" style="grid-column: 1; grid-row: 2;" aria-hidden="true"></div>
+      <div class="fm-step" data-step="angebote" style="grid-column: 1; grid-row: 3;">
+        <span class="fm-step-title">Angebote</span>
+        <span class="fm-step-sub">viele Ansätze</span>
+      </div>
     </div>
 
-    <div style="grid-column: 3; grid-row: 1;">
-      <button type="button" class="fm-lever" aria-pressed="false" data-lever="kanal" data-step="zugang">
-        <span class="fm-lever-title">Kanal Schule</span>
-        <span class="fm-lever-sub">möglicher Hebel</span>
-      </button>
-      <button type="button" class="fm-lever" aria-pressed="false" data-lever="startregion" data-step="zugang">
-        <span class="fm-lever-title">Startregion</span>
-        <span class="fm-lever-sub">möglicher Hebel</span>
-      </button>
-    </div>
-    <div class="fm-connector" data-step="zugang" style="grid-column: 3; grid-row: 2;" aria-hidden="true"></div>
-    <div class="fm-arrow" data-from="angebote" data-to="zugang" style="grid-column: 2; grid-row: 3;" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="fm-step" data-step="zugang" style="grid-column: 3; grid-row: 3;">
-      <span class="fm-step-title">Zugang</span>
-      <span class="fm-step-sub">Kanal &amp; Region</span>
-    </div>
-
-    <button type="button" class="fm-lever" aria-pressed="false" data-lever="lehrkraefte" data-step="kompetenz" style="grid-column: 5; grid-row: 1;">
-      <span class="fm-lever-title">Lehrkräfte</span>
-      <span class="fm-lever-sub">in Prüfung</span>
-    </button>
-    <div class="fm-connector" data-step="kompetenz" style="grid-column: 5; grid-row: 2;" aria-hidden="true"></div>
-    <div class="fm-arrow" data-from="zugang" data-to="kompetenz" style="grid-column: 4; grid-row: 3;" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="fm-step" data-step="kompetenz" style="grid-column: 5; grid-row: 3;">
-      <span class="fm-step-title">Kompetenz</span>
-      <span class="fm-step-sub">nach Herkunft</span>
+    <!-- Arrow + Zugang -->
+    <div class="fm-mobile-row" style="display: contents;">
+      <div class="fm-mobile-levers" style="grid-column: 3; grid-row: 1;">
+        <button type="button" class="fm-lever" aria-pressed="false" data-lever="kanal" data-step="zugang">
+          <span class="fm-lever-title">Kanal Schule</span>
+          <span class="fm-lever-sub">möglicher Hebel</span>
+        </button>
+        <button type="button" class="fm-lever" aria-pressed="false" data-lever="startregion" data-step="zugang">
+          <span class="fm-lever-title">Startregion</span>
+          <span class="fm-lever-sub">möglicher Hebel</span>
+        </button>
+      </div>
+      <div class="fm-connector" data-step="zugang" style="grid-column: 3; grid-row: 2;" aria-hidden="true"></div>
+      <div class="fm-arrow" data-from="angebote" data-to="zugang" style="grid-column: 2; grid-row: 3;" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="fm-step" data-step="zugang" style="grid-column: 3; grid-row: 3;">
+        <span class="fm-step-title">Zugang</span>
+        <span class="fm-step-sub">Kanal &amp; Region</span>
+      </div>
     </div>
 
-    <div class="fm-arrow" data-from="kompetenz" data-to="teilhabe" style="grid-column: 6; grid-row: 3;" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- Arrow + Kompetenz -->
+    <div class="fm-mobile-row" style="display: contents;">
+      <div class="fm-mobile-levers" style="grid-column: 5; grid-row: 1;">
+        <button type="button" class="fm-lever" aria-pressed="false" data-lever="lehrkraefte" data-step="kompetenz">
+          <span class="fm-lever-title">Lehrkräfte</span>
+          <span class="fm-lever-sub">in Prüfung</span>
+        </button>
+      </div>
+      <div class="fm-connector" data-step="kompetenz" style="grid-column: 5; grid-row: 2;" aria-hidden="true"></div>
+      <div class="fm-arrow" data-from="zugang" data-to="kompetenz" style="grid-column: 4; grid-row: 3;" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="fm-step" data-step="kompetenz" style="grid-column: 5; grid-row: 3;">
+        <span class="fm-step-title">Kompetenz</span>
+        <span class="fm-step-sub">nach Herkunft</span>
+      </div>
     </div>
-    <div class="fm-step" data-step="teilhabe" style="grid-column: 7; grid-row: 3;">
-      <span class="fm-step-title">Teilhabe</span>
-      <span class="fm-step-sub">Chancengefälle</span>
+
+    <!-- Arrow + Teilhabe -->
+    <div class="fm-mobile-row is-goal-row" style="display: contents;">
+      <div class="fm-arrow" data-from="kompetenz" data-to="teilhabe" style="grid-column: 6; grid-row: 3;" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="fm-step" data-step="teilhabe" style="grid-column: 7; grid-row: 3;">
+        <span class="fm-step-title">Teilhabe</span>
+        <span class="fm-step-sub">Chancengefälle</span>
+      </div>
     </div>
+
   </div>
 
   <div class="fm-legend">
